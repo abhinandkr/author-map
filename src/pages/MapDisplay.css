@@ -1,0 +1,13 @@
+.mapContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
+#map {
+  width: 80%;
+  height: 80%;
+}
+
+/*# sourceMappingURL=MapDisplay.css.map */

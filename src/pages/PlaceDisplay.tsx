@@ -1,42 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import MapDisplay from './MapDisplay';
 
 type Props = {
 	authorName: string,
 };
 
 export default function PlaceDisplay(props: Props) {
-	const [birthPlace, setBirthPlace] = useState<string>();
+	const [birthPlace, setBirthPlace] = useState<string>('');
 	useEffect(() => {
+		async function get() {
+			const res = await axios.get(`http://localhost:3000/api/authorPlace/author/${props.authorName}`);
+			console.log(res.data);
+			setBirthPlace(res.data);
+		}
+
 		if (props.authorName) {
-			httpGet(`http://localhost:3000/api/authorPlace/author/${props.authorName}`)
-				.then((res) => res.data)
-				.then((val: string) => {
-					console.log(val);
-					setBirthPlace(val);
-				});
+			get().then(() => {});
 		}
 	}, [props.authorName]);
 	return (
 		<div>
-			{birthPlace}
+			<MapDisplay birthPlace={birthPlace}/>
 		</div>
 	);
-}
-
-// function getOptions(verb: string) {
-// 	const options = {
-// 		dataType: 'json',
-// 		method: verb,
-// 		headers: {
-// 			'Accept': 'application/json',
-// 			'Content-Type': 'application/json',
-// 		},
-// 	};
-// 	return options;
-// }
-
-function httpGet(path: string) {
-	// return fetch(path, getOptions('GET'));
-	return axios.get(path);
 }

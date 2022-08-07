@@ -24,5 +24,6 @@ module.exports = {
 		'indent': [1, 'tab'],
 		'no-tabs': 0,
 		'padded-blocks': 0,
+		'no-unused-vars': 0,
 	},
 };
