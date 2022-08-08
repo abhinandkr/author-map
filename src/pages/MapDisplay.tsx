@@ -9,6 +9,7 @@ import {Circle, Fill, Stroke, Style} from 'ol/style';
 import {Point} from 'ol/geom';
 
 import './MapDisplay.scss';
+import axios from 'axios';
 
 type Props = {
 	birthPlace: string,
@@ -43,11 +44,19 @@ export default function MapDisplay(props: Props) {
 
 	useEffect(() => {
 		if (props.birthPlace && props.birthPlace.length > 0) {
-			const feature = new Feature({
-				geometry: new Point(fromLonLat([77.5946, 12.9716])),
-			});
-			feature.setStyle(getMapStyle());
-			setFeatures((features) => [...features, feature]);
+			(async function() {
+				const res = await axios.get(`http://localhost:3000/api/placeCoord/coord/${props.birthPlace}`);
+				const {data} = res;
+				if (!data) {
+					return null; // place not found
+				}
+				const {latitude, longitude} = data;
+				const feature = new Feature({
+					geometry: new Point(fromLonLat([longitude, latitude])),
+				});
+				feature.setStyle(getMapStyle());
+				setFeatures((features) => [...features, feature]);
+			})().then(() => {});
 		}
 	}, [props.birthPlace]);
 
