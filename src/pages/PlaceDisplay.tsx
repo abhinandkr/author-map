@@ -12,7 +12,7 @@ export default function PlaceDisplay(props: Props) {
 		async function get() {
 			const res = await axios.get(`http://localhost:3000/api/authorPlace/author/${props.authorName}`);
 			console.log(res.data);
-			setBirthPlace(res.data);
+			setBirthPlace(res.data.birthPlace);
 		}
 
 		if (props.authorName) {
