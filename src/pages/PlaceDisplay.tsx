@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function PlaceDisplay(props: Props) {
-	const [birthPlace, setBirthPlace] = useState<string>('');
+	const [birthPlace, setBirthPlace] = useState<any>('');
 	useEffect(() => {
 		async function get() {
 			const res = await axios.get(`http://localhost:3000/api/authorPlace/author/${props.authorName}`);

@@ -12,7 +12,7 @@ import './MapDisplay.scss';
 import axios from 'axios';
 
 type Props = {
-	birthPlace: string,
+	birthPlace: any,
 };
 
 export default function MapDisplay(props: Props) {
@@ -43,14 +43,9 @@ export default function MapDisplay(props: Props) {
 	}, []);
 
 	useEffect(() => {
-		if (props.birthPlace && props.birthPlace.length > 0) {
+		if (props.birthPlace) {
 			(async function() {
-				const res = await axios.get(`http://localhost:3000/api/placeCoord/coord/${props.birthPlace}`);
-				const {data} = res;
-				if (!data) {
-					return null; // place not found
-				}
-				const {latitude, longitude} = data;
+				const {latitude, longitude} = props.birthPlace;
 				const feature = new Feature({
 					geometry: new Point(fromLonLat([longitude, latitude])),
 				});
