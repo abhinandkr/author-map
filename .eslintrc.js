@@ -25,5 +25,6 @@ module.exports = {
 		'no-tabs': 0,
 		'padded-blocks': 0,
 		'no-unused-vars': 0,
+		'linebreak-style': 0,
 	},
 };
